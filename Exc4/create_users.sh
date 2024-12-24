@@ -1,9 +1,28 @@
 # Script 1: Create Users
 #!/bin/bash
 
-# Create service accounts for users
-kubectl create serviceaccount user-viewer -n default
-kubectl create serviceaccount user-editor -n default
-kubectl create serviceaccount user-admin -n kube-system
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: user-viewer
+  namespace: default
+EOF
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: user-editor
+  namespace: default
+EOF
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: user-admin
+  namespace: kube-system
+EOF
 
 echo "Users user-viewer, user-editor, and user-admin created."
